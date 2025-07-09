@@ -1,0 +1,36 @@
+module four_bit_multiplier (
+    input  [3:0] A,
+    input  [3:0] B,
+    output [7:0] Product
+);
+    assign Product = A * B;
+endmodule
+
+module test;
+    reg  [3:0] A, B;
+    wire [7:0] Product;
+
+    four_bit_multiplier uut (
+        .A(A),
+        .B(B),
+        .Product(Product)
+    );
+
+    initial begin
+        $display(" A   B  | Product");
+
+        A = 4'b0000; B = 4'b0000; #10;
+        $display("%2d  %2d  |   %3d", A, B, Product);
+
+        A = 4'b0010; B = 4'b0011; #10; // 2*3 = 6
+        $display("%2d  %2d  |   %3d", A, B, Product);
+
+        A = 4'b0101; B = 4'b0011; #10; // 5*3 = 15
+        $display("%2d  %2d  |   %3d", A, B, Product);
+
+        A = 4'b1111; B = 4'b1111; #10; // 15*15 = 225
+        $display("%2d  %2d  |   %3d", A, B, Product);
+
+        $finish;
+    end
+endmodule
